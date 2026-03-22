@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Build an AI SaaS App with Next.js 15 in 2026 - Complete Guide</title>
+<meta name="description" content="Step-by-step guide to building a production AI SaaS application with Next.js 15, Stripe billing, authentication, and streaming AI chat. Ship in days, not months.">
+<meta name="keywords" content="AI SaaS, Next.js 15, SaaS boilerplate, AI chat app, Stripe billing, SaaS starter template">
+<link rel="canonical" href="https://kszongic.github.io/storefront/blog/how-to-build-ai-saas-nextjs.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Build an AI SaaS App with Next.js 15 in 2026","datePublished":"2026-03-22","author":{"@type":"Person","name":"KSZ"},"publisher":{"@type":"Organization","name":"KSZ Dev Tools"}}</script>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.8}a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}.c{max-width:720px;margin:0 auto;padding:2rem 1.5rem}h1{font-size:2rem;margin-bottom:1rem;line-height:1.3}h2{font-size:1.4rem;margin:2rem 0 1rem;color:#f0f6fc}h3{font-size:1.15rem;margin:1.5rem 0 .75rem}p{margin-bottom:1rem;color:#c9d1d9}.m{color:#8b949e;margin-bottom:2rem;font-size:.9rem}code{background:#161b22;padding:2px 6px;border-radius:4px;font-size:.9em}pre{background:#161b22;padding:1rem;border-radius:8px;overflow-x:auto;margin:1rem 0}pre code{padding:0;background:none}.cta{background:linear-gradient(135deg,#238636,#2ea043);color:#fff;padding:1.5rem;border-radius:12px;text-align:center;margin:2rem 0}.cta h3{color:#fff;margin-top:0}.cta a{color:#fff;font-weight:bold;text-decoration:underline}nav{margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid #21262d}nav a{color:#8b949e;margin-right:1.5rem;font-size:.9rem}footer{text-align:center;padding:2rem 0;border-top:1px solid #21262d;margin-top:3rem;color:#484f58;font-size:.85rem}ul,ol{margin:0 0 1rem 1.5rem;color:#c9d1d9}li{margin-bottom:.5rem}</style></head>
+<body><div class="c">
+<nav><a href="https://kszongic.github.io/storefront/blog/">Blog</a><a href="https://kszongic.github.io/storefront/">Products</a><a href="https://github.com/kszongic">GitHub</a></nav>
+<h1>How to Build an AI SaaS App with Next.js 15 in 2026</h1>
+<div class="m">March 22, 2026 - 8 min read - by KSZ</div>
+
+<p>Building an AI SaaS in 2026 is more accessible than ever, but the boilerplate is still painful. Auth, billing, rate limiting, streaming AI responses, admin dashboards - there is a lot to wire up before you write a single line of product code.</p>
+
+<p>This guide walks through the architecture of a production-ready AI SaaS and shows you how to ship one in days instead of months.</p>
+
+<h2>The Stack</h2>
+<ul>
+<li><strong>Framework:</strong> Next.js 15 with App Router and React 19</li>
+<li><strong>Auth:</strong> Auth.js v5 (NextAuth) with Google, GitHub, email providers</li>
+<li><strong>Payments:</strong> Stripe with subscription webhooks</li>
+<li><strong>AI:</strong> Vercel AI SDK with streaming (OpenAI, Anthropic, or any provider)</li>
+<li><strong>Database:</strong> PostgreSQL with Drizzle ORM</li>
+<li><strong>Styling:</strong> Tailwind CSS 4</li>
+<li><strong>Deploy:</strong> Vercel or any Node.js host</li>
+</ul>
+
+<h2>1. Project Structure</h2>
+<p>A well-organized AI SaaS has these key directories:</p>
+<pre><code>src/
+  app/
+    (auth)/        # Login, register, forgot password
+    (dashboard)/   # Main app, chat, settings
+    (admin)/       # Admin panel, user management
+    api/
+      auth/        # NextAuth routes
+      chat/        # AI streaming endpoint
+      webhooks/    # Stripe webhook handler
+  lib/
+    auth.ts        # Auth config
+    stripe.ts      # Stripe helpers
+    ai.ts          # AI provider config
+    db/            # Drizzle schema + migrations</code></pre>
+
+<h2>2. Authentication</h2>
+<p>Auth.js v5 makes multi-provider auth straightforward. The key is setting up proper session callbacks to include the user role and subscription tier:</p>
+<pre><code>// src/lib/auth.ts
+export const authConfig = {
+  providers: [Google, GitHub, Email],
+  callbacks: {
+    session({ session, user }) {
+      session.user.role = user.role
+      session.user.tier = user.subscriptionTier
+      return session
+    }
+  }
+}</code></pre>
+
+<h2>3. Stripe Billing</h2>
+<p>The billing flow needs three pieces: checkout session creation, webhook handling, and tier-based access control.</p>
+<p>Key webhook events to handle:</p>
+<ul>
+<li><code>checkout.session.completed</code> - Activate subscription</li>
+<li><code>customer.subscription.updated</code> - Plan changes</li>
+<li><code>customer.subscription.deleted</code> - Cancellations</li>
+<li><code>invoice.payment_failed</code> - Payment issues</li>
+</ul>
+
+<h2>4. AI Chat with Streaming</h2>
+<p>The Vercel AI SDK handles streaming elegantly. Your API route streams tokens as they arrive:</p>
+<pre><code>// src/app/api/chat/route.ts
+export async function POST(req) {
+  const { messages } = await req.json()
+  const session = await auth()
+  
+  // Check daily usage limits based on tier
+  const usage = await getDailyUsage(session.user.id)
+  if (usage >= TIER_LIMITS[session.user.tier]) {
+    return new Response("Daily limit reached", { status: 429 })
+  }
+
+  const result = streamText({
+    model: openai("gpt-4o"),
+    messages,
+  })
+  
+  return result.toDataStreamResponse()
+}</code></pre>
+
+<h2>5. Rate Limiting and Usage Tracking</h2>
+<p>Every AI SaaS needs usage limits per tier. Track daily message counts in your database and enforce limits in middleware or the API route. Typical tiers:</p>
+<ul>
+<li><strong>Free:</strong> 10 messages/day</li>
+<li><strong>Pro ($19/mo):</strong> 500 messages/day</li>
+<li><strong>Enterprise ($49/mo):</strong> Unlimited + priority</li>
+</ul>
+
+<h2>6. Admin Dashboard</h2>
+<p>An admin panel lets you monitor users, revenue, and usage. Key metrics to track: DAU, messages sent, conversion rate from free to paid, MRR.</p>
+
+<div class="cta">
+<h3>Skip the Boilerplate</h3>
+<p>The <a href="https://github.com/kszongic/ai-saas-starter">AI SaaS Starter</a> template includes all of this pre-built: auth, Stripe, AI chat, admin panel, rate limiting, and more. <strong>$49 one-time purchase</strong> - ship your AI product this week.</p>
+<p style="margin-top:1rem"><a href="https://kszongic.github.io/storefront/">Get it now &rarr;</a></p>
+</div>
+
+<h2>7. Deployment Checklist</h2>
+<ol>
+<li>Set up PostgreSQL (Neon, Supabase, or Railway)</li>
+<li>Configure Stripe webhooks for your production domain</li>
+<li>Set environment variables for all providers</li>
+<li>Run database migrations</li>
+<li>Deploy to Vercel with <code>npx vercel --prod</code></li>
+<li>Test the full flow: signup, subscribe, chat, cancel</li>
+</ol>
+
+<h2>Conclusion</h2>
+<p>Building an AI SaaS is mostly plumbing. The AI part is the easy bit - it is the auth, billing, rate limiting, and admin tooling that eats your time. Use a proven template to skip the boring parts and focus on what makes your product unique.</p>
+
+<footer><p>2026 KSZ Dev Tools - <a href="https://kszongic.github.io/storefront/blog/">More articles</a> - <a href="https://kszongic.github.io/storefront/">Products</a></p></footer>
+</div></body></html>
