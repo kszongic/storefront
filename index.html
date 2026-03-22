@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KSZ Dev Tools — Premium Developer Templates & Tools</title>
+<meta name="description" content="Ship faster with production-ready SaaS templates, developer tools, and Chrome extensions. Built by developers, for developers.">
+<meta name="keywords" content="saas template, next.js boilerplate, ai starter, landing page template, chrome extension, developer tools">
+<meta property="og:title" content="KSZ Dev Tools — Ship Faster">
+<meta property="og:description" content="Premium developer templates, tools & extensions. Production-ready code to launch in days.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kszongic.github.io/storefront/">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--card:#111;--border:#222;--text:#e5e5e5;--muted:#888;--accent:#6366f1;--accent2:#8b5cf6;--green:#22c55e;--orange:#f97316}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* Hero */
+.hero{text-align:center;padding:80px 20px 60px}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;background:linear-gradient(135deg,#6366f1,#8b5cf6,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px}
+.hero p{font-size:1.2rem;color:var(--muted);max-width:600px;margin:0 auto 32px}
+.badge{display:inline-block;background:#6366f120;color:var(--accent);padding:6px 16px;border-radius:999px;font-size:.85rem;margin-bottom:24px;border:1px solid #6366f140}
+
+/* Products grid */
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;padding:0 0 80px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card-tag{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:6px;font-weight:600;margin-bottom:12px}
+.tag-template{background:#6366f120;color:var(--accent)}
+.tag-tool{background:#22c55e20;color:var(--green)}
+.tag-extension{background:#f9731620;color:var(--orange)}
+.tag-free{background:#22c55e20;color:var(--green)}
+.card h3{font-size:1.25rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.9rem;margin-bottom:16px;min-height:60px}
+.card-footer{display:flex;justify-content:space-between;align-items:center}
+.price{font-size:1.5rem;font-weight:700}
+.price-sub{font-size:.8rem;color:var(--muted);font-weight:400}
+.btn{display:inline-block;padding:10px 20px;border-radius:10px;font-weight:600;font-size:.9rem;transition:opacity .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{opacity:.85;text-decoration:none}
+.btn-secondary{background:var(--border);color:var(--text)}.btn-secondary:hover{opacity:.85;text-decoration:none}
+.features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.feat{font-size:.75rem;background:#ffffff08;padding:3px 8px;border-radius:4px;color:var(--muted)}
+
+/* Free tools banner */
+.free-banner{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#6366f110,#8b5cf610);border-radius:16px;margin-bottom:40px}
+.free-banner h2{font-size:1.5rem;margin-bottom:8px}
+.free-banner p{color:var(--muted)}
+
+/* Footer */
+footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
+footer a{color:var(--muted)}
+
+/* npm install */
+.install-box{background:#000;border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-family:'SF Mono',Monaco,monospace;font-size:.85rem;color:var(--green);margin-bottom:16px;cursor:pointer;position:relative}
+.install-box:hover::after{content:'Click to copy';position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.75rem}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="badge">🚀 Built for developers who ship</div>
+    <h1>Premium Templates & Dev Tools</h1>
+    <p>Production-ready code so you can launch in days, not months. Open source foundations, premium polish.</p>
+  </section>
+
+  <section class="free-banner">
+    <h2>🛠️ Free Developer Toolkit</h2>
+    <p>12 client-side tools — JSON, Base64, JWT, regex, diff & more. No signup, no tracking.</p>
+    <a href="https://kszongic.github.io/dev-toolkit-site/" class="btn btn-primary" style="margin-top:16px">Open Free Tools →</a>
+  </section>
+
+  <div class="products">
+    <!-- AI SaaS Starter -->
+    <div class="card">
+      <span class="card-tag tag-template">TEMPLATE</span>
+      <h3>AI SaaS Starter</h3>
+      <p>Full-stack AI SaaS boilerplate. Auth, Stripe billing, AI chat with streaming, admin dashboard. Ship your AI product in days.</p>
+      <div class="features">
+        <span class="feat">Next.js 15</span>
+        <span class="feat">Stripe</span>
+        <span class="feat">Auth.js v5</span>
+        <span class="feat">AI Chat</span>
+        <span class="feat">Admin Panel</span>
+        <span class="feat">TypeScript</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">$49</span>
+        <div>
+          <a href="https://github.com/kszongic/ai-saas-starter" class="btn btn-secondary" style="margin-right:8px">GitHub</a>
+          <a href="#" class="btn btn-primary">Buy →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Landing Page Kit -->
+    <div class="card">
+      <span class="card-tag tag-template">TEMPLATE</span>
+      <h3>Landing Page Kit</h3>
+      <p>12 conversion-optimized landing page templates. Tailwind CSS 4 + Astro 5. 100/100 Lighthouse score. Dark mode included.</p>
+      <div class="features">
+        <span class="feat">Tailwind 4</span>
+        <span class="feat">Astro 5</span>
+        <span class="feat">12 Templates</span>
+        <span class="feat">Dark Mode</span>
+        <span class="feat">Responsive</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">$39</span>
+        <div>
+          <a href="https://github.com/kszongic/landing-page-kit" class="btn btn-secondary" style="margin-right:8px">GitHub</a>
+          <a href="#" class="btn btn-primary">Buy →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- create-saas-app -->
+    <div class="card">
+      <span class="card-tag tag-tool">CLI TOOL</span>
+      <h3>create-saas-app</h3>
+      <p>Interactive CLI to scaffold SaaS projects. 5 free templates + 3 premium. One command to start building.</p>
+      <div class="install-box" onclick="navigator.clipboard.writeText('npx create-saas-app')">$ npx create-saas-app</div>
+      <div class="features">
+        <span class="feat">npx</span>
+        <span class="feat">8 Templates</span>
+        <span class="feat">Interactive</span>
+        <span class="feat">TypeScript</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">Free<span class="price-sub"> + premium $29-49</span></span>
+        <a href="https://github.com/kszongic/create-saas-app" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+
+    <!-- JSON Viewer Pro -->
+    <div class="card">
+      <span class="card-tag tag-extension">EXTENSION</span>
+      <h3>JSON Viewer Pro</h3>
+      <p>Beautiful JSON viewer for Chrome. Syntax highlighting, tree view, search, diff & schema validation. Catppuccin Mocha theme.</p>
+      <div class="features">
+        <span class="feat">Chrome</span>
+        <span class="feat">Tree View</span>
+        <span class="feat">JSON Diff</span>
+        <span class="feat">Schema</span>
+        <span class="feat">JSONPath</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">$4.99<span class="price-sub"> Pro upgrade</span></span>
+        <a href="https://github.com/kszongic/json-viewer-pro" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+
+    <!-- DevTools API -->
+    <div class="card">
+      <span class="card-tag tag-tool">API</span>
+      <h3>DevTools API</h3>
+      <p>Developer utility API on Cloudflare Workers. JSON, hash, UUID, encode/decode, regex, timestamps. Lightning fast.</p>
+      <div class="features">
+        <span class="feat">Cloudflare</span>
+        <span class="feat">Global Edge</span>
+        <span class="feat">100 req/day free</span>
+        <span class="feat">REST</span>
+      </div>
+      <div class="card-footer">
+        <span class="price">$5<span class="price-sub">/month Pro</span></span>
+        <a href="https://github.com/kszongic/devtools-api" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+
+    <!-- Dev Toolkit Site -->
+    <div class="card">
+      <span class="card-tag tag-free">FREE</span>
+      <h3>Dev Toolkit Site</h3>
+      <p>12 free client-side developer tools. JSON formatter, Base64, JWT decoder, regex tester, diff, and more. No signup needed.</p>
+      <div class="features">
+        <span class="feat">12 Tools</span>
+        <span class="feat">Client-side</span>
+        <span class="feat">No Tracking</span>
+        <span class="feat">Open Source</span>
+      </div>
+      <div class="card-footer">
+        <span class="price" style="color:var(--green)">Free</span>
+        <div>
+          <a href="https://kszongic.github.io/dev-toolkit-site/" class="btn btn-primary" style="margin-right:8px">Open →</a>
+          <a href="https://github.com/kszongic/dev-toolkit-site" class="btn btn-secondary">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Built by <a href="https://github.com/kszongic">@kszongic</a> · <a href="https://github.com/kszongic?tab=repositories">All Repos</a></p>
+</footer>
+</body>
+</html>
